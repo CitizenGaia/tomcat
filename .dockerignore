@@ -1,0 +1,10 @@
+## Git stuff
+.git
+
+## Maven build dirs
+**/target
+
+## Idea project files
+**/.idea*
+**/*.iml
+

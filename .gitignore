@@ -1,0 +1,7 @@
+## Maven build dirs
+**/target
+
+## Idea project files
+**/.idea*
+**/*.iml
+

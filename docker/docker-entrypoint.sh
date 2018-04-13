@@ -8,9 +8,9 @@ sed -i "s@<Connector port=\"-1\" protocol=\"HTTP/1.1\" connectionTimeout=\"-1\" 
 
 cat /Manifest/version.properties
 if [ "$1" = 'run' ]; then
-    echo -e "[$(date --iso-8601=seconds)] Booting new docker container" >> $LOG_VOLUME/docker-entrypoint.log
+    echo -e "[$(date -I[seconds])] Booting new docker container" >> $LOG_VOLUME/docker-entrypoint.log
     cat /Manifest/version.properties >> $LOG_VOLUME/docker-entrypoint.log
-    echo -e "\n[$(date --iso-8601=seconds)]\n" >> $LOG_VOLUME/docker-entrypoint.log
+    echo -e "\n[$(date -I[seconds])]\n" >> $LOG_VOLUME/docker-entrypoint.log
     exec catalina.sh run > /dev/null 2>&1 #All the output is also written to normal log file.
 fi
 exec "$@"

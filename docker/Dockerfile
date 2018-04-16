@@ -35,6 +35,8 @@ RUN rm -rfv $CATALINA_HOME/work
 RUN mkdir $CATALINA_HOME/work
 COPY docker-entrypoint.sh /
 COPY verify-container.sh /
+COPY ROOT.war $CATALINA_HOME/webapps/ROOT.war 
+RUN ls -lrt $CATALINA_HOME/webapps
 RUN mkdir /Manifest
 RUN touch /Manifest/version.properties
 

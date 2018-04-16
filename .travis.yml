@@ -1,0 +1,19 @@
+sudo: required
+
+services:
+  - docker
+
+env:
+  - IMAGE=CitizenGaia/tomcat
+
+before_install:
+  - docker build -t $IMAGE
+
+
+
+language: ruby
+rvm:
+- 2.0.0
+- 1.9.3
+- jruby-19mode
+- rbx-2

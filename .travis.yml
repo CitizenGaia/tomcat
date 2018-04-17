@@ -1,19 +1,38 @@
 sudo: required
 
+language: java
+
+jdk:
+  - oraclejdk8
+
 services:
   - docker
 
 env:
-  - IMAGE=citizengaia/tomcat
+  - IMAGE=citizengaia/tomcat:1.0-SNAPSHOT
 
 before_install:
-  - docker build -t $IMAGE ./docker/
+  # troubleshooting info in case of problems
+  - docker version
+  - docker info
 
+services:
+  - docker
 
+branches:
+  only:
+    - master
 
-language: ruby
-rvm:
-- 2.0.0
-- 1.9.3
-- jruby-19mode
-- rbx-2
+after_success:
+  - mkdir -p '/tmp/logs/'
+  # start container 
+  - docker run --rm -d -p '8080:8080' -v '/tmp/logs:/hostfs/tomcat/logs' --name=tomcat $IMAGE 
+  # test running container
+  - curl -s -S -o responsefile http://localhost:8080/
+  - grep -E "OK" responsefile || echo "wrong response from tomcat base image"
+  # running container  
+  - echo "OK response from tomcat base image"
+  # stop container 
+  - docker stop tomcat 
+  - ls -lrt '/tmp/logs/'
+  

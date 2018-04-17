@@ -1,9 +1,8 @@
 Docker image for Tomcat base
 ============================
 
-This repository is to maintain the docker base image for Tomcat based
-images. It is built on dockerhub on
-https://hub.docker.com/r/skatekapital/commons.tomcat-base/
+This repository is to maintain a docker base image for Tomcat based
+images. 
 
 
 Intention

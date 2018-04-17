@@ -35,4 +35,5 @@ after_success:
   # stop container 
   - docker stop tomcat 
   - ls -lrt '/tmp/logs/'
+  - tail -10 '/tmp/logs/docker-entrypoint.log'
   

@@ -4,10 +4,10 @@ services:
   - docker
 
 env:
-  - IMAGE=CitizenGaia/tomcat
+  - IMAGE=citizengaia/tomcat
 
 before_install:
-  - docker build -t $IMAGE
+  - docker build -t $IMAGE ./docker/
 
 
 

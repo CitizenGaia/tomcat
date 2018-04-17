@@ -26,7 +26,7 @@ branches:
 after_success:
   - mkdir -p '/tmp/logs/'
   # start container 
-  - docker run -rm -p '8080:8080' -v '/tmp/logs:/hostfs/tomcat/logs' --name=tomcat $IMAGE 
+  - docker run --rm -p '8080:8080' -v '/tmp/logs:/hostfs/tomcat/logs' --name=tomcat $IMAGE 
   # test running container
   - bash <(curl -s http://localhost:8080/) 
   # stop container 

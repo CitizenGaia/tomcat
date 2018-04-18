@@ -21,14 +21,10 @@ before_install:
   - docker version
   - docker info
 
-before_script:
+after_success:
   - mkdir -p '/tmp/logs/'
-  
-script:  
   - docker tag $IMAGE:$CURRENT $IMAGE
   - docker run --rm -d -p '8080:8080' -v '/tmp/logs:/hostfs/tomcat/logs' --name=tomcat $IMAGE  
-
-after_success:
   # test running container
   - curl -s -S -o responsefile http://localhost:8080/
   - grep -E "OK" responsefile || echo "wrong response from tomcat base image"
@@ -36,7 +32,11 @@ after_success:
   - echo "OK response from tomcat base image"
   # stop container 
   - docker stop tomcat 
-
-after_script:
   - ls -lrt '/tmp/logs/'
   - tail -10 '/tmp/logs/docker-entrypoint.log'
+  # Before Deploy
+  - docker login --username $dockerhub_user --password $dockerhub_pass  
+  # Deployment
+  - docker push $IMAGE  
+  # After Deploy
+  - docker logout

@@ -13,8 +13,9 @@ branches:
     - master
 
 env:
-  - IMAGE=citizengaia/tomcat
-  - CURRENT=1.0-SNAPSHOT  
+  global:
+    - IMAGE=citizengaia/tomcat
+    - CURRENT=1.0-SNAPSHOT
 
 before_install:
   # troubleshooting info in case of problems

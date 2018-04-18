@@ -14,7 +14,7 @@ branches:
 
 env:
   global:
-    - IMAGE=citizengaia/tomcat
+    - IMAGE=citizengaia/tomcat-base
     - CURRENT=1.0-SNAPSHOT
 
 before_install:

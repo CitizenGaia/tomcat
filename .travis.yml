@@ -8,25 +8,27 @@ jdk:
 services:
   - docker
 
+branches:
+  only:
+    - master
+
 env:
-  - IMAGE=citizengaia/tomcat:1.0-SNAPSHOT
+  - IMAGE=citizengaia/tomcat
+  - CURRENT=1.0-SNAPSHOT  
 
 before_install:
   # troubleshooting info in case of problems
   - docker version
   - docker info
 
-services:
-  - docker
-
-branches:
-  only:
-    - master
+before_script:
+  - mkdir -p '/tmp/logs/'
+  
+script:  
+  - docker tag $IMAGE:$CURRENT $IMAGE
+  - docker run --rm -d -p '8080:8080' -v '/tmp/logs:/hostfs/tomcat/logs' --name=tomcat $IMAGE  
 
 after_success:
-  - mkdir -p '/tmp/logs/'
-  # start container 
-  - docker run --rm -d -p '8080:8080' -v '/tmp/logs:/hostfs/tomcat/logs' --name=tomcat $IMAGE 
   # test running container
   - curl -s -S -o responsefile http://localhost:8080/
   - grep -E "OK" responsefile || echo "wrong response from tomcat base image"
@@ -34,6 +36,7 @@ after_success:
   - echo "OK response from tomcat base image"
   # stop container 
   - docker stop tomcat 
+
+after_script:
   - ls -lrt '/tmp/logs/'
   - tail -10 '/tmp/logs/docker-entrypoint.log'
-  

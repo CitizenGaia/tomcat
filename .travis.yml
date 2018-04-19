@@ -3,41 +3,40 @@ sudo: required
 language: java
 
 jdk:
-  - oraclejdk8
+- oraclejdk8
 
 services:
-  - docker
+- docker
 
 branches:
   only:
-    - master
+  - master
 
 env:
   global:
-    - IMAGE=citizengaia/tomcat-base
-    - CURRENT=1.0-SNAPSHOT
+  - IMAGE=citizengaia/tomcat-base
+  - CURRENT=1.0-SNAPSHOT
 
 before_install:
-  # troubleshooting info in case of problems
-  - docker version
-  - docker info
+- docker version
+- docker info
 
 after_success:
-  - mkdir -p '/tmp/logs/'
-  - docker tag $IMAGE:$CURRENT $IMAGE
-  - docker run --rm -d -p '8080:8080' -v '/tmp/logs:/hostfs/tomcat/logs' --name=tomcat $IMAGE  
-  # test running container
-  - curl -s -S -o responsefile http://localhost:8080/
-  - grep -E "OK" responsefile || echo "wrong response from tomcat base image"
-  # running container  
-  - echo "OK response from tomcat base image"
-  # stop container 
-  - docker stop tomcat 
-  - ls -lrt '/tmp/logs/'
-  - tail -10 '/tmp/logs/docker-entrypoint.log'
-  # Before Deploy
-  - docker login --username $dockerhub_user --password $dockerhub_pass  
-  # Deployment
-  - docker push $IMAGE  
-  # After Deploy
-  - docker logout
+- mkdir -p '/tmp/logs/'
+- docker tag $IMAGE:$CURRENT $IMAGE
+- docker run --rm -d -p '8080:8080' -v '/tmp/logs:/hostfs/tomcat/logs' --name=tomcat $IMAGE
+- curl -s -S -o responsefile http://localhost:8080/
+- grep -E "OK" responsefile || echo "wrong response from tomcat base image"
+- echo "OK response from tomcat base image"
+- docker stop tomcat
+- ls -lrt '/tmp/logs/'
+- tail -10 '/tmp/logs/docker-entrypoint.log'
+- docker login --username $dockerhub_user --password $dockerhub_pass
+- docker push $IMAGE
+- docker logout
+
+notifications:
+  slack:
+    rooms:
+      secure: Ka9c3F+BMo9ns5s8ZN+kjtGx+WbTebp8NDXzTMksifUcoOKbJm5+UqcJ5zN9XcfL0VySn+edbKV3XTnlQZB5JVeBk+ptrJJNFyqyk06kQnn27NdTeR4QUobzxcSZVHcMa7wh92Xl7BaI1UeztErutZd6GVznppfaSmgJomwr+IkIPFTWgpwL90Pp/LvBnyABKXOywhMw/vYhMuiNvtPpdImmZzzRV6NW1Z3H9usQg876gZt2hAii6uLU8rXE1M+wPcRJ+zcrCR6X1Jty2CJ3sWhLenN+Y/ZYHu4zx2ePtzanVbR5Dd9YqTaaqILbXh2M1N/7kDdMahzBsiR/G6LgGh54v0F7+LAIhO3DwMRhaXzjmiuInlmrIwPnCqOM5DFeOCr9zVzMyEAGh9iMqQDoXqL/eBWYzXNqtF6hArZIMHVUP7c6LwuYYyJDzM+bXG5DQING8E+OcujPLowCHmCmMvfTXk8tcbzRcc2NX4RlBas9+OE/SBMkgp/26IJaRtrlEXi5y5fvD7fWRcUFSrkpwdSFRKIHZ22l8JcnThAQVqLFBfq8ghZ+zDZLvNnZ3iK4qNpY/g3PlZGOeU/keUdE7LdEXfJQwSLB+v0B5Q7AAFPiQg9xcTNi6dgat4rwZK11DKoScuuyYt0gUU09y362wK9fx4YvGFrnC1INBT2DdEk=
+

@@ -1,26 +1,19 @@
 sudo: required
-
 language: java
-
 jdk:
 - oraclejdk8
-
 services:
 - docker
-
 branches:
   only:
   - master
-
 env:
   global:
   - IMAGE=citizengaia/tomcat-base
   - CURRENT=1.0-SNAPSHOT
-
 before_install:
 - docker version
 - docker info
-
 after_success:
 - mkdir -p '/tmp/logs/'
 - docker tag $IMAGE:$CURRENT $IMAGE
@@ -34,10 +27,9 @@ after_success:
 - docker login --username $dockerhub_user --password $dockerhub_pass
 - docker push $IMAGE
 - docker logout
-
 notifications:
   slack:
     rooms:
-      secure: Ka9c3F+BMo9ns5s8ZN+kjtGx+WbTebp8NDXzTMksifUcoOKbJm5+UqcJ5zN9XcfL0VySn+edbKV3XTnlQZB5JVeBk+ptrJJNFyqyk06kQnn27NdTeR4QUobzxcSZVHcMa7wh92Xl7BaI1UeztErutZd6GVznppfaSmgJomwr+IkIPFTWgpwL90Pp/LvBnyABKXOywhMw/vYhMuiNvtPpdImmZzzRV6NW1Z3H9usQg876gZt2hAii6uLU8rXE1M+wPcRJ+zcrCR6X1Jty2CJ3sWhLenN+Y/ZYHu4zx2ePtzanVbR5Dd9YqTaaqILbXh2M1N/7kDdMahzBsiR/G6LgGh54v0F7+LAIhO3DwMRhaXzjmiuInlmrIwPnCqOM5DFeOCr9zVzMyEAGh9iMqQDoXqL/eBWYzXNqtF6hArZIMHVUP7c6LwuYYyJDzM+bXG5DQING8E+OcujPLowCHmCmMvfTXk8tcbzRcc2NX4RlBas9+OE/SBMkgp/26IJaRtrlEXi5y5fvD7fWRcUFSrkpwdSFRKIHZ22l8JcnThAQVqLFBfq8ghZ+zDZLvNnZ3iK4qNpY/g3PlZGOeU/keUdE7LdEXfJQwSLB+v0B5Q7AAFPiQg9xcTNi6dgat4rwZK11DKoScuuyYt0gUU09y362wK9fx4YvGFrnC1INBT2DdEk=
+      secure: zHg1SBuzTHibxWfRWLemMzk3ySoneRhXlfkcpucEny2Mf78XsIEO53XwpNcPmvX1fTFEoXh3BJp4pT/P2lDEqTpz24SZcX7j7aaIuC8QDH7JS/JlBkmtFJtiOes+m9ZpGGZxGI0GyBDtJOQHxkXAsS+IFBGoW5Ymq4nJHlobcY3cb81IqaSNfRGm6rPSdOx9ahNEPea4OL6keDwdDdsd3a+lnjJv7i0/vOQw5lPI2L4cmQQ9AvE+Kp7nHsuos9dGNRTdERijmH7DPhOFsNyQItfxW562PyMGZ8gge8NGHVNU9dd9fpTCgt7caacWHnGow19hVAzMzUK20ERsTJ6a/xWk6p81CzvK8GhyBA0diBpKzgZSQ2eobVku9uR64S3PHiFviLG6ZKqNgZschJNdgd0gbwOVZVDUD6OEFKb1vNHlYNJ3NaOXDehvpbw+LVqjulEbK3oqJswD/a7kbxqSW+t+z6HdUs8dFnl6gn9LUyIn3xz0qr4SWPHjC0uujAsFRLBmlC+QJ0Y2B9r67SnznHK4VTzlOEAAxmajfZ3N44zAHt/i0eyDgMtBcuWvRPXjkfTJsTP+cwNYpaPawBtjRlGNndg1a8ADNpkn/hwztZl74n7CwcKmhxZ3HJSGVO4AF2tCPvlXfpFAWDAW7CgezTq/AfTzAmbRjzAALcz5kiI=
     on_success: always
 

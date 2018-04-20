@@ -4,9 +4,9 @@ Docker image of a tomcat with a small ROOT.war that returns 'OK' when request hi
 
 Heavily inspired from davidcaste.
 It's purpose is to create a base tomcat image with:
-## a Manifest.version file that keeps a reference to a given build and test cycle.
-## an easy way to keep log-folders at hand when the container is runnning (-v param)
-## an easy way to apply WAR-files and server configurations for inheritant docker images
+- a Manifest.version file that keeps a reference to a given build and test cycle.
+- an easy way to keep log-folders at hand when the container is runnning (-v param)
+- an easy way to apply WAR-files and server configurations for inheritant docker images
 
 The Travis CI relation hook will pull changes and run tests before creating the docker image.
 

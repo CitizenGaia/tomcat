@@ -1,3 +1,9 @@
+notifications:
+  slack:
+    on_success: always
+    on_failure: always
+    rooms:
+      secure: R8cHb6mwIiStfzpl+morhefYzaJ0GSfSQpsDenuqNqJrcebnTVN0cUzygMc6kG9oHrwWqXvBUymxKVEWI83r6QTU0otLidrHUVPZ5Mu7A9n0JTslXb1WDB6WKphQ+uz2GtKqNYdeF+EnS0tvkCL27hor/4ZvRS7x6bdmLOottFRhc5hsRJY+T+pZobfGlWB/feiHT8udKllFFlTBy4+l8ERWqjXC/p6r8Wb/roGqUBDuBxAHyZYUbvegvyzeL2Yj/smiEWJWG2vyDg3fBx6aveHYfOVrqCznmNL4sdMxauE0a7Wq95bItuoIb4G70BkbP5Z3Ip9BNOHBmF53SIzowDUBVUTQBvKQJ4bBYvpo5niNoXu7pA3ZTq7NLKra+UI6kCsa37wNnM+5D3Db/YYQBbFld187vpgGUP755qlqjO7xrU6NdIJfmXYLjzUaTBJwpBBizjkeH5T59x/apwO7bB4lvjiEA5hUwCdqm7mYm8rmQ1ViuctcTrl4Cb8KmlFeZljmC7p70Ywy2tOUzMsZzyTwDVIcR1qdAxfb9gcLGSN5St0w+otNCuvV7FyC00hgtkOoIs3/M/oec+xavJub8HSYk88yPc0d1/F9HYK9yvjDsdF/NuIIISrYaRFjDKLYzBhKbzKXliFhSuENKfOsTUybgngYUIIvq4SL5Jq2ZDs=
 sudo: required
 language: java
 jdk:
@@ -27,9 +33,3 @@ after_success:
 - docker login --username $dockerhub_user --password $dockerhub_pass
 - docker push $IMAGE
 - docker logout
-notifications:
-  slack:
-    on_success: always
-    on_failure: always
-    rooms:
-      secure: R8cHb6mwIiStfzpl+morhefYzaJ0GSfSQpsDenuqNqJrcebnTVN0cUzygMc6kG9oHrwWqXvBUymxKVEWI83r6QTU0otLidrHUVPZ5Mu7A9n0JTslXb1WDB6WKphQ+uz2GtKqNYdeF+EnS0tvkCL27hor/4ZvRS7x6bdmLOottFRhc5hsRJY+T+pZobfGlWB/feiHT8udKllFFlTBy4+l8ERWqjXC/p6r8Wb/roGqUBDuBxAHyZYUbvegvyzeL2Yj/smiEWJWG2vyDg3fBx6aveHYfOVrqCznmNL4sdMxauE0a7Wq95bItuoIb4G70BkbP5Z3Ip9BNOHBmF53SIzowDUBVUTQBvKQJ4bBYvpo5niNoXu7pA3ZTq7NLKra+UI6kCsa37wNnM+5D3Db/YYQBbFld187vpgGUP755qlqjO7xrU6NdIJfmXYLjzUaTBJwpBBizjkeH5T59x/apwO7bB4lvjiEA5hUwCdqm7mYm8rmQ1ViuctcTrl4Cb8KmlFeZljmC7p70Ywy2tOUzMsZzyTwDVIcR1qdAxfb9gcLGSN5St0w+otNCuvV7FyC00hgtkOoIs3/M/oec+xavJub8HSYk88yPc0d1/F9HYK9yvjDsdF/NuIIISrYaRFjDKLYzBhKbzKXliFhSuENKfOsTUybgngYUIIvq4SL5Jq2ZDs=
